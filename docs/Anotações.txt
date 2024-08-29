@@ -1,0 +1,3 @@
+Passo a Passo:
+
+1 - Dotnet new sln --name Application_Task_Private
