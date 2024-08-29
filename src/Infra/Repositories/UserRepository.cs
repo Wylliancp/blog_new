@@ -11,9 +11,9 @@ namespace Infra.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private readonly Context.BlogContext _context;
+        private readonly BlogOneContext _context;
 
-        public UserRepository(Context.BlogContext context)
+        public UserRepository(BlogOneContext context)
         {
             _context = context;
         }

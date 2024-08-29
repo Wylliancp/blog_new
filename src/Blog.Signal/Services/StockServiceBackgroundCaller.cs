@@ -9,8 +9,9 @@ namespace Blog.Signal.Services
 {
     public class StockServiceBackgroundCaller : BackgroundService
     {
-        public IStockData _stockData { get;}
+        public IStockData _stockData { get; }
         public IHubContext<StockDataHub> _stockDataHub { get; }
+
 
         private int productId = 1;
 
@@ -24,8 +25,9 @@ namespace Blog.Signal.Services
         {
             while(!stoppingToken.IsCancellationRequested)
             {
-                var product = await _stockData.GetStockData(productId);
-                await _stockDataHub.Clients.All.SendAsync("populatedata", JsonSerializer.Serialize(product));
+                //var product = await _stockData.GetStockData(productId);
+                var posts = await _stockData.GetPostsCount();
+                await _stockDataHub.Clients.All.SendAsync("populatedata", JsonSerializer.Serialize(posts));
                 Interlocked.Increment(ref productId);
 
                 if(productId == 20)

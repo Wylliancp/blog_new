@@ -47,8 +47,8 @@ function refreshchartdata(product) {
         myLineChart.data.labels.splice(0, 1);
     }
 
-    myLineChart.data.datasets[0].data.push(product.stock);
-    myLineChart.data.labels.push(product.description.substring(0, 30));
+    myLineChart.data.datasets[0].data.push(product.sum);
+    myLineChart.data.labels.push(product.title.substring(0, 30));
     myLineChart.update();
 
 }

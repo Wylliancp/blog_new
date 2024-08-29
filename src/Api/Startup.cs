@@ -35,14 +35,12 @@ namespace Api
             services.AddCors();
 
             services.AddControllers();
-            // services.AddDbContext<DataContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("ConnectionString")));
-            services.AddDbContext<Infra.Context.BlogContext>(opt => opt.UseInMemoryDatabase("database"));
 
-
+            //Context
+            services.AddDbContext<Infra.Context.BlogOneContext>(opt => opt.UseInMemoryDatabase("database"));
             // Repository
             services.AddTransient<IPostsRepository, PostsRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
-            // services.AddTransient(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             // handler
             services.AddTransient<PostsHandler, PostsHandler>();
             services.AddTransient<UserHandler, UserHandler>();

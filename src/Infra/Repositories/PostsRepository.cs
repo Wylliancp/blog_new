@@ -1,5 +1,6 @@
 using Domain.Entities;
 using Domain.Interfaces.Repositories;
+using Infra.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,9 +11,9 @@ namespace Infra.Repositories
 {
     public class PostsRepository : IPostsRepository
     {
-        private readonly Context.BlogContext _context;
+        private readonly BlogOneContext _context;
 
-        public PostsRepository(Context.BlogContext context) 
+        public PostsRepository(BlogOneContext context) 
         {
             _context = context;
         }

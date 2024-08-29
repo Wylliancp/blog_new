@@ -1,7 +1,11 @@
 using Blog.Signal.Hubs;
 using Blog.Signal.Services;
+using Domain.Interfaces.Repositories;
+using Infra.Context;
+using Infra.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -28,8 +32,15 @@ namespace Blog.Signal
             services.AddSignalR();
             services.AddHttpClient();
 
-            services.AddSingleton<IStockData, StockData>();
+            // Context
+            services.AddDbContext<BlogOneContext>(opt => opt.UseInMemoryDatabase("database"), ServiceLifetime.Singleton);
+            //Repository
+            services.AddSingleton<IPostsRepository, PostsRepository>();
+
             services.AddHostedService<StockServiceBackgroundCaller>();
+            services.AddSingleton<IStockData, StockData>();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
