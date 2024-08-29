@@ -1,4 +1,5 @@
 
+using System.Configuration;
 using System.Text.Json.Serialization;
 using Domain.Handlers;
 using Domain.Interfaces.Repositories;
@@ -37,7 +38,14 @@ namespace Api
             services.AddControllers();
 
             //Context
-            services.AddDbContext<Infra.Context.BlogOneContext>(opt => opt.UseInMemoryDatabase("database"));
+            var connectionString = Configuration.GetConnectionString("Database");
+
+            services.AddDbContext<BlogOneContext>((sp, options) =>
+            {
+                options.UseSqlServer(connectionString);
+            });
+
+            //services.AddDbContext<Infra.Context.BlogOneContext>(opt => opt.UseInMemoryDatabase("database"));
             // Repository
             services.AddTransient<IPostsRepository, PostsRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
