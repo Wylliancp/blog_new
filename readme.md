@@ -6,11 +6,29 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - [net5.0](https://dotnet.microsoft.com/pt-br/download/dotnet/5.0)
 - [EfCore InMemory](https://learn.microsoft.com/en-us/ef/core/providers/in-memory/?tabs=dotnet-core-cli)
 - [CQRS](https://learn.microsoft.com/pt-br/azure/architecture/patterns/cqrs)
-- [C# Generics type constraint](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/where-generic-type-constraint)
 - [API WEB](https://learn.microsoft.com/pt-br/aspnet/core/tutorials/first-web-api?view=aspnetcore-8.0&tabs=visual-studio)
 
-Projeto poc(Prova de conceito) - Generics
+Projeto desafio DATUM
 
 Em Andamento.....
 
 ![alt text](image.png)
+
+ITEM CRIAR USER
+
+![alt text](/docs/criar_usuario.pngimage.png)
+
+ITEM LISTAR USERS
+
+![alt text](/docs/listar_usuario.png)
+
+ITEM CRIAR POST
+
+![alt text](/docs/criar_post.png)
+
+ITEM lISTAR USERS FOR POSTS
+
+![alt text](/docs/listar_user_post.png.png)
+
+
+
