@@ -10,13 +10,9 @@ As seguintes ferramentas foram usadas na construção do projeto:
 
 Projeto desafio DATUM
 
-Em Andamento.....
-
-![alt text](image.png)
-
 ITEM CRIAR USER
 
-![alt text](/docs/criar_usuario.pngimage.png)
+![alt text](/docs/criar_usuario.png)
 
 ITEM LISTAR USERS
 
@@ -28,7 +24,7 @@ ITEM CRIAR POST
 
 ITEM lISTAR USERS FOR POSTS
 
-![alt text](/docs/listar_user_post.png.png)
+![alt text](/docs/listar_user_post.png)
 
 
 
