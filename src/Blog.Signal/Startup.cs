@@ -1,7 +1,6 @@
 using Blog.Signal.Hubs;
 using Blog.Signal.Services;
 using Domain.Interfaces.Repositories;
-using Infra.Context;
 using Infra.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -9,10 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Blog.Signal
 {
@@ -32,6 +27,9 @@ namespace Blog.Signal
             services.AddSignalR();
             services.AddHttpClient();
 
+            services.AddDbContext<Infra.Context.BlogOneContext>(opt => opt.UseInMemoryDatabase("database"), ServiceLifetime.Singleton);
+            // Repository
+            services.AddSingleton<IPostsRepository, PostsRepository>();
             services.AddHostedService<StockServiceBackgroundCaller>();
             services.AddSingleton<IStockData, StockData>();
 

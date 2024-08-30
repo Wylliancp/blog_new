@@ -38,14 +38,14 @@ namespace Api
             services.AddControllers();
 
             //Context
-            var connectionString = Configuration.GetConnectionString("Database");
+            //var connectionString = Configuration.GetConnectionString("Database");
 
-            services.AddDbContext<BlogOneContext>((sp, options) =>
-            {
-                options.UseSqlServer(connectionString);
-            });
+            //services.AddDbContext<BlogOneContext>((sp, options) =>
+            //{
+            //    options.UseSqlServer(connectionString);
+            //});
 
-            //services.AddDbContext<Infra.Context.BlogOneContext>(opt => opt.UseInMemoryDatabase("database"));
+            services.AddDbContext<Infra.Context.BlogOneContext>(opt => opt.UseInMemoryDatabase("database"));
             // Repository
             services.AddTransient<IPostsRepository, PostsRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
