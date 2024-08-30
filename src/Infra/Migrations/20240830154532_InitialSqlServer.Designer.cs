@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infra.Migrations
 {
     [DbContext(typeof(BlogOneContext))]
-    [Migration("20240829231409_initial")]
-    partial class initial
+    [Migration("20240830154532_InitialSqlServer")]
+    partial class InitialSqlServer
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

@@ -27,9 +27,15 @@ namespace Blog.Signal
             services.AddSignalR();
             services.AddHttpClient();
 
-            services.AddDbContext<Infra.Context.BlogOneContext>(opt => opt.UseInMemoryDatabase("database"), ServiceLifetime.Singleton);
+            //services.AddDbContext<Infra.Context.BlogOneContext>(opt => opt.UseInMemoryDatabase("database"), ServiceLifetime.Singleton);
+            //var connectionString = Configuration.GetConnectionString("Database");
+
+            //services.AddDbContext<Infra.Context.BlogOneContext>(options =>
+            
+            //    options.UseSqlServer(connectionString), ServiceLifetime.Singleton
+            //);
             // Repository
-            services.AddSingleton<IPostsRepository, PostsRepository>();
+            //services.AddSingleton<IPostsRepository, PostsRepository>();
             services.AddHostedService<StockServiceBackgroundCaller>();
             services.AddSingleton<IStockData, StockData>();
 
