@@ -26,5 +26,9 @@ ITEM lISTAR USERS FOR POSTS
 
 ![alt text](/docs/listar_user_post.png)
 
+Posts e painel de quantidade de posts em Tempo Real
+
+![alt text](fini.png)
+
 
 
