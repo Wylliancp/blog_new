@@ -5,6 +5,10 @@ namespace Blog.Signal.Models
 {
     public class PostModel
     {
+        public PostModel()
+        {
+        }
+
         public PostModel(string title, int sum)
         {
             Title = title;
@@ -12,9 +16,9 @@ namespace Blog.Signal.Models
         }
 
         [JsonPropertyName("title")]
-        public string Title { get; private set; }
+        public string Title { get; set; }
         [JsonPropertyName("sum")]
-        public int Sum { get; private set; }
+        public int Sum { get; set; }
 
     }
 }

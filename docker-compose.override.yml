@@ -28,6 +28,9 @@ services:
   blog.signal:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__Database=Server=postdb;Database=PostDb;User Id=sa;Password=SwN12345678;Encrypt=False;TrustServerCertificate=True
     ports:
       - "80"
+    depends_on:
+      - postdb
 

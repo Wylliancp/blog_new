@@ -32,11 +32,6 @@ namespace Blog.Signal
             services.AddSignalR();
             services.AddHttpClient();
 
-            // Context
-            services.AddDbContext<BlogOneContext>(opt => opt.UseInMemoryDatabase("database"), ServiceLifetime.Singleton);
-            //Repository
-            services.AddSingleton<IPostsRepository, PostsRepository>();
-
             services.AddHostedService<StockServiceBackgroundCaller>();
             services.AddSingleton<IStockData, StockData>();
 

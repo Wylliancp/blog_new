@@ -12,6 +12,10 @@ namespace Infra.Context
 
         }
 
+        public BlogOneContext()
+        {
+        }
+
         public DbSet<Posts> Posts { get; set; }
         public DbSet<User> Users { get; set; }
 
