@@ -7,8 +7,7 @@ namespace Domain.Entities
     {
         public string Nome { get; private set; }
         public string Password { get; private set; }
-        public DateTime DateCreate { get; private set; }
-        public DateTime DateEnd { get; private set; }
+        //public DateTime DateEnd { get; private set; }
         public IList<Posts> Posts { get; private set; } = new List<Posts>();
 
 
@@ -28,11 +27,7 @@ namespace Domain.Entities
         {
             DateCreate = DateTime.Now;
         }
-        public void AddDateEnd(bool finished)
-        {
-            if (finished)
-                DateEnd = DateTime.Now;
-        }
+
 
         public void UpdataUser(string nome, string password)
         {

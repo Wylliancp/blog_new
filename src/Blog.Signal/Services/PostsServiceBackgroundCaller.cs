@@ -7,26 +7,23 @@ using System.Threading.Tasks;
 
 namespace Blog.Signal.Services
 {
-    public class StockServiceBackgroundCaller : BackgroundService
+    public class PostsServiceBackgroundCaller : BackgroundService
     {
-        public IStockData _stockData { get; }
-        public IHubContext<StockDataHub> _stockDataHub { get; }
+        public IPostsService _postsService { get; }
+        public IHubContext<PostsDataHub> _stockDataHub { get; }
 
-
-        private int productId = 1;
-
-        public StockServiceBackgroundCaller(IStockData stockData, IHubContext<StockDataHub> stockDataHub)
+        public PostsServiceBackgroundCaller(IPostsService stockData, IHubContext<PostsDataHub> stockDataHub)
         {
-            _stockData = stockData;
+            _postsService = stockData;
             _stockDataHub = stockDataHub;
         }
+        private int productId = 1;
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             while(!stoppingToken.IsCancellationRequested)
             {
-                //var product = await _stockData.GetStockData(productId);
-                var posts = await _stockData.GetPostsCount();
+                var posts = await _postsService.GetPostsCount();
                 await _stockDataHub.Clients.All.SendAsync("populatedata", JsonSerializer.Serialize(posts));
                 Interlocked.Increment(ref productId);
 

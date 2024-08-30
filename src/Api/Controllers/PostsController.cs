@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
-using Domain.Commands;
-using Domain.Commands.User;
+﻿using Domain.Commands.User;
 using Domain.Entities;
 using Domain.Handlers;
 using Domain.interfaces.Commands;
 using Domain.Interfaces.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 
 namespace Api.Controllers
 {

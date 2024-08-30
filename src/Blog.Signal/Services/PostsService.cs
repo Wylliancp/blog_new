@@ -1,5 +1,4 @@
 using Blog.Signal.Models;
-using Domain.Entities;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -9,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace Blog.Signal.Services
 {
-    public class StockData : IStockData
+    public class PostsService : IPostsService
     {
 
         public IHttpClientFactory _httpClientFactory;
         private readonly HttpClient _client;
 
-        public StockData(IHttpClientFactory httpClientFactory)
+        public PostsService(IHttpClientFactory httpClientFactory)
         {
             _client = httpClientFactory.CreateClient(this.GetType().Name);
         }
@@ -34,7 +33,7 @@ namespace Blog.Signal.Services
                 if (response.IsSuccessStatusCode)
                 {
                     var responseJson = await response.Content.ReadAsStringAsync();
-                    var posts =  JsonConvert.DeserializeObject<List<Posts>>(responseJson);
+                    var posts =  JsonConvert.DeserializeObject<List<PostsDto>>(responseJson);
                     return new PostModel(title: "Soma de Post", sum: posts.Count());
                 }
                 else
@@ -46,8 +45,6 @@ namespace Blog.Signal.Services
             {
                 return new PostModel();
             }
-
-
         }
     }
 }

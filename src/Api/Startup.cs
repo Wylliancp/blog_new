@@ -1,5 +1,4 @@
 
-using System.Configuration;
 using System.Text.Json.Serialization;
 using Domain.Handlers;
 using Domain.Interfaces.Repositories;
@@ -36,18 +35,19 @@ namespace Api
             services.AddCors();
 
             services.AddControllers();
+            services.AddDbContext<Infra.Context.BlogOneContext>(opt => opt.UseInMemoryDatabase("database"));
+            //Todo - aqui contém a configuracao caso queria utilizar um dos dois bancos! Add-Migration Initial // Update-Database - projeto Infra
             //Context SqLite
             //services.AddDbContext<BlogOneContext>(opts =>
             //    opts.UseSqlite(Configuration.GetConnectionString("Database")));
             //Context
-            var connectionString = Configuration.GetConnectionString("Database");
+            //var connectionString = Configuration.GetConnectionString("Database");
 
-            services.AddDbContext<BlogOneContext>((sp, options) =>
-            {
-                options.UseSqlServer(connectionString);
-            });
+            //services.AddDbContext<BlogOneContext>((sp, options) =>
+            //{
+            //    options.UseSqlServer(connectionString);
+            //});
 
-            //services.AddDbContext<Infra.Context.BlogOneContext>(opt => opt.UseInMemoryDatabase("database"));
             // Repository
             services.AddTransient<IPostsRepository, PostsRepository>();
             services.AddTransient<IUserRepository, UserRepository>();

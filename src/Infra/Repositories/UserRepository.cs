@@ -2,7 +2,6 @@ using Domain.Entities;
 using Domain.Interfaces.Repositories;
 using Infra.Context;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,11 +17,6 @@ namespace Infra.Repositories
             _context = context;
         }
 
-        public User GetUserPeriodAsync(DateTime dateInitial, DateTime DateEnd)
-        {
-            return _context.Users.Where(x => x.DateCreate == dateInitial && x.DateEnd == DateEnd).FirstOrDefault();
-            
-        }
         public bool Create(User item)
         {
             if (item == null)

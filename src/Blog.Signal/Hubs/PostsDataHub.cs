@@ -2,7 +2,7 @@
 
 namespace Blog.Signal.Hubs
 {
-    public class StockDataHub : Hub
+    public class PostsDataHub : Hub
     {
     }
 }

@@ -47,7 +47,7 @@ namespace Infra.Context
 
             modelBuilder.Entity<Posts>().Property(x => x.DateCreate);
 
-            modelBuilder.Entity<Posts>().HasIndex(x => x.DateEnd);
+            //modelBuilder.Entity<Posts>().HasIndex(x => x.DateEnd);
 
 
 
@@ -71,7 +71,7 @@ namespace Infra.Context
 
             modelBuilder.Entity<User>().Property(x => x.DateCreate);
 
-            modelBuilder.Entity<User>().HasIndex(x => x.DateEnd);
+            //modelBuilder.Entity<User>().HasIndex(x => x.DateEnd);
         }
 
     }

@@ -9,6 +9,7 @@ namespace Domain.Commands.Posts
         public CreatePostsCommand(string title, string description, int userId)
         {
             ValidTasksTitle(title);
+            ValidTasksId(userId);
             Title = title;
             Description = description;
             UserId = userId;

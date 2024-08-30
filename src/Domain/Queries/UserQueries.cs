@@ -4,7 +4,7 @@ using Domain.Entities;
 
 namespace Domain.Queries
 {
-    public static class PostsQueries
+    public static class UserQueries
     {
         
         public static Expression<Func<Posts,bool>> GetById(int id)

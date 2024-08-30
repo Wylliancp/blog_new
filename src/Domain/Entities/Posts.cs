@@ -6,8 +6,7 @@ namespace Domain.Entities
     {
         public string Title { get; private set; }
         public string Description { get; private set; }
-        public DateTime DateCreate { get; private set; }
-        public DateTime DateEnd { get; private set; }
+        //public DateTime DateEnd { get; private set; }
         public int UserId { get; private set; }
 
 
@@ -18,22 +17,11 @@ namespace Domain.Entities
             UserId = userId;
             AddDateCreate();
         }
-
-        public Posts()
-        {
-
-        }
         public void AddDateCreate()
         {
             DateCreate = DateTime.Now;
         }
-        public void AddDateEnd(bool finished)
-        {
-            if (finished)
-                DateEnd = DateTime.Now;
-        }
-
-        public void UpdataPosts(string title, string description, bool finished)
+        public void UpdataPosts(string title, string description)
         {
             Title = title;
             Description = description;

@@ -2,7 +2,6 @@ using Domain.Entities;
 using Domain.Interfaces.Repositories;
 using Infra.Context;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,12 +15,6 @@ namespace Infra.Repositories
         public PostsRepository(BlogOneContext context) 
         {
             _context = context;
-        }
-
-        public Posts GetPostsPeriodAsync(DateTime dateInitial, DateTime DateEnd)
-        {
-            return _context.Posts.Where(x => x.DateCreate == dateInitial && x.DateEnd == DateEnd).FirstOrDefault();
-            
         }
 
         public bool Create(Posts item)

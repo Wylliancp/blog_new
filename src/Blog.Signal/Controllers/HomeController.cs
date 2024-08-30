@@ -1,22 +1,17 @@
-﻿using Blog.Signal.Models;
-using Blog.Signal.Services;
+﻿using Blog.Signal.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Blog.Signal.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IStockData stockData;
+        private readonly IPostsService stockData;
 
 
-        public HomeController(ILogger<HomeController> logger, IStockData stockData)
+        public HomeController(ILogger<HomeController> logger, IPostsService stockData)
         {
             _logger = logger;
             this.stockData = stockData;

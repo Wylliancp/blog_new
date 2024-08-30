@@ -36,8 +36,8 @@ namespace Blog.Signal
             //);
             // Repository
             //services.AddSingleton<IPostsRepository, PostsRepository>();
-            services.AddHostedService<StockServiceBackgroundCaller>();
-            services.AddSingleton<IStockData, StockData>();
+            services.AddHostedService<PostsServiceBackgroundCaller>();
+            services.AddSingleton<IPostsService, PostsService>();
 
 
         }
@@ -62,7 +62,7 @@ namespace Blog.Signal
             app.UseEndpoints(endpoints =>
             {
 
-                endpoints.MapHub<StockDataHub>("/stockdatahub");
+                endpoints.MapHub<PostsDataHub>("/stockdatahub");
                 endpoints.MapControllerRoute(
                          name: "default",
                          pattern: "{controller=Home}/{action=Index}/{id?}");

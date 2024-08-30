@@ -15,7 +15,15 @@ namespace Domain.Utils
                 IsValid = false;
         }
 
-        
-        
+        public void ValidTasksId(int id)
+        {
+            IsValid = true;
+
+            if (id == 0)
+                IsValid = false;
+        }
+
+
+
     }
 }

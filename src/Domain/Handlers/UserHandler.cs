@@ -1,5 +1,4 @@
-﻿using System;
-using Domain.Commands;
+﻿using Domain.Commands;
 using Domain.Commands.Posts;
 using Domain.Entities;
 using Domain.interfaces.Commands;
@@ -39,7 +38,7 @@ namespace Domain.Handlers
             //repository
             var task = _repository.GetById(command.Id);
             // reidratacao
-            task.UpdataPosts(command.Title,command.Description, true);
+            task.UpdataPosts(command.Title,command.Description);
             //
             _repository.Update(task);
             //
