@@ -52,10 +52,10 @@ Passo 1
 ![alt text](/docs/Post_1.png)
 
 Passo 2 - Em tempo real a quantidade de notificacao na tela da direita.
-![alt text](/docs/Post_notification_1.png.png)
+![alt text](/docs/Post_notification_1.png)
 
 Passo 3 - Em tempo real a quantidade de notificacao na tela da direita 50 itens.
-![alt text](/docs/Post_notification_50.png.png.png)
+![alt text](/docs/Post_notification_50.png)
 
 
 
