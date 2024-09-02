@@ -1,5 +1,6 @@
 using Domain.Entities;
 using Domain.Interfaces.Repositories;
+using Domain.Queries;
 using Infra.Context;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -22,7 +23,7 @@ namespace Infra.Repositories
             if (item == null)
                 return false;
 
-            _context.Add(item);//especificar o dbset
+            _context.Posts.Add(item);
             _context.SaveChanges();
             return true;
         }
@@ -32,7 +33,7 @@ namespace Infra.Repositories
             if (item == null)
                 return false;
 
-            await _context.AddAsync(item);//especificar o dbset
+            await _context.Posts.AddAsync(item);
             await _context.SaveChangesAsync();
             return true;
         }
@@ -49,7 +50,7 @@ namespace Infra.Repositories
             if (item == null)
                 return false;
 
-            _context.Remove(item);//especificar o dbset
+            _context.Posts.Remove(item);
             _context.SaveChanges();
             return true;
         }
@@ -66,7 +67,7 @@ namespace Infra.Repositories
             if (item == null)
                 return false;
 
-            _context.Remove(item);
+            _context.Posts.Remove(item);
             await _context.SaveChangesAsync();
             return true;
         }
@@ -74,7 +75,7 @@ namespace Infra.Repositories
         public IEnumerable<Posts> GetAll()
         {
             var result = _context.Posts.AsEnumerable();
-            return result as IEnumerable<Posts>;
+            return result;
         }
 
         public Task<IEnumerable<Posts>> GetAllAsync()
@@ -85,14 +86,14 @@ namespace Infra.Repositories
 
         public Posts GetById(int id)
         {
-            var result = _context.Posts.Where(x => x.Id == id).FirstOrDefault();
-            return result as Posts;
+            var result = _context.Posts.Where(PostsQueries.GetById(id)).FirstOrDefault();
+            return result;
         }
 
         public Task<Posts> GetByIdAsync(int id)
         {
-            var result = _context.Posts.Where(x => x.Id == id).FirstOrDefaultAsync();
-            return result as Task<Posts>;
+            var result = _context.Posts.Where(PostsQueries.GetById(id)).FirstOrDefaultAsync();
+            return result; 
         }
 
         public bool Update(Posts item)
@@ -105,7 +106,7 @@ namespace Infra.Repositories
 
         public async Task<bool> UpdateAsync(Posts item)
         {
-            _context.Posts.Update(item as Posts);
+            _context.Posts.Update(item);
             await _context.SaveChangesAsync();
 
             return true;

@@ -46,7 +46,7 @@ namespace Api.Controllers
 
         [Route("Create")]
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize]
 
         public ICommandResult Create([FromBody] CreatePostsCommand createPostsCommand, [FromServices] PostsHandler handler)
         {

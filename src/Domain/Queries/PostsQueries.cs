@@ -2,7 +2,7 @@ using System;
 using System.Linq.Expressions;
 using Domain.Entities;
 
-namespace Application.Queries
+namespace Domain.Queries
 {
     public static class PostsQueries
     {

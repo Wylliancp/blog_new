@@ -1,5 +1,3 @@
-using System.Text.Json.Serialization;
-
 namespace Domain.Utils
 {
     public abstract class Validation<T> where T : class

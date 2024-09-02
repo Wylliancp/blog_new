@@ -1,5 +1,6 @@
 using Domain.Entities;
 using Domain.Interfaces.Repositories;
+using Domain.Queries;
 using Infra.Context;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -19,9 +20,7 @@ namespace Infra.Repositories
 
         public User Authenticate(string nome, string password)
         {
-            var user = _context.Users.AsNoTracking().Where(x => x.Nome == nome
-                                                            && x.Password == password)
-                                                            .FirstOrDefault();
+            var user = _context.Users.AsNoTracking().Where(UserQueries.Authentication(nome,password)).FirstOrDefault();
 
             return user;
         }
@@ -31,7 +30,7 @@ namespace Infra.Repositories
             if (item == null)
                 return false;
 
-            _context.Add(item);//especificar o dbset
+            _context.Users.Add(item);
             _context.SaveChanges();
             return true;
         }
@@ -41,7 +40,7 @@ namespace Infra.Repositories
             if (item == null)
                 return false;
 
-            await _context.AddAsync(item);//especificar o dbset
+            await _context.Users.AddAsync(item);
             await _context.SaveChangesAsync();
             return true;
         }
@@ -58,7 +57,7 @@ namespace Infra.Repositories
             if (item == null)
                 return false;
 
-            _context.Remove(item);//especificar o dbset
+            _context.Users.Remove(item);
             _context.SaveChanges();
             return true;
         }
@@ -75,7 +74,7 @@ namespace Infra.Repositories
             if (item == null)
                 return false;
 
-            _context.Remove(item);
+            _context.Users.Remove(item);
             await _context.SaveChangesAsync();
             return true;
         }
@@ -83,7 +82,7 @@ namespace Infra.Repositories
         public IEnumerable<User> GetAll()
         {
             var result = _context.Users.Include(x => x.Posts).AsEnumerable();
-            return result as IEnumerable<User>;
+            return result;
         }
 
         public Task<IEnumerable<User>> GetAllAsync()
@@ -94,14 +93,15 @@ namespace Infra.Repositories
 
         public User GetById(int id)
         {
-            var result = _context.Users.Where(x => x.Id == id).FirstOrDefault();
-            return result as User;
+            var result = _context.Users.Where(UserQueries.GetById(id)).FirstOrDefault();
+            return result;
+
         }
 
         public Task<User> GetByIdAsync(int id)
         {
-            var result = _context.Users.Where(x => x.Id == id).FirstOrDefaultAsync();
-            return result as Task<User>;
+            var result = _context.Users.Where(UserQueries.GetById(id)).FirstOrDefaultAsync();
+            return result;
         }
 
         public bool Update(User item)
@@ -114,7 +114,7 @@ namespace Infra.Repositories
 
         public async Task<bool> UpdateAsync(User item)
         {
-            _context.Users.Update(item as User);
+            _context.Users.Update(item);
             await _context.SaveChangesAsync();
 
             return true;
