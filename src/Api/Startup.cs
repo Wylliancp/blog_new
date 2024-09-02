@@ -1,16 +1,18 @@
-
-using System.Text.Json.Serialization;
-using Domain.Handlers;
+using Application;
+using Application.Handlers;
 using Domain.Interfaces.Repositories;
-using Infra.Context;
 using Infra.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Text;
+using System.Text.Json.Serialization;
 
 namespace Api
 {
@@ -35,31 +37,71 @@ namespace Api
             services.AddCors();
 
             services.AddControllers();
-            services.AddDbContext<Infra.Context.BlogOneContext>(opt => opt.UseInMemoryDatabase("database"));
-            //Todo - aqui contém a configuracao caso queria utilizar um dos dois bancos! Add-Migration Initial // Update-Database - projeto Infra
-            //Context SqLite
-            //services.AddDbContext<BlogOneContext>(opts =>
-            //    opts.UseSqlite(Configuration.GetConnectionString("Database")));
+
+            //Swagger 
+            services.AddSwaggerGen(c =>
+            {
+
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description = "",
+                });
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        new string[] {}
+                    }
+                });
+
+            });
+
+            services.AddControllers();
+            //jwt-ex::bearer+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Im5ldyIsIm5iZiI6MTcyNTIzOTY0NiwiZXhwIjoxNzI1MjQ2ODQ1LCJpYXQiOjE3MjUyMzk2NDZ9.HYONNkHxy54ZOQKhZgBZUl-zJQoL3ZWHTj0Se4FPfXc
+            var key = Encoding.ASCII.GetBytes(Settings.Secret);
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
+
+            //Fim Swagger
+
             //Context
-            //var connectionString = Configuration.GetConnectionString("Database");
-
-            //services.AddDbContext<BlogOneContext>((sp, options) =>
-            //{
-            //    options.UseSqlServer(connectionString);
-            //});
-
+            services.AddDbContext<Infra.Context.BlogOneContext>(opt => opt.UseInMemoryDatabase("database"));
             // Repository
             services.AddTransient<IPostsRepository, PostsRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
             // handler
             services.AddTransient<PostsHandler, PostsHandler>();
             services.AddTransient<UserHandler, UserHandler>();
+            // FIM
+   
 
-            services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Api", Version = "v1" });
-            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -79,6 +121,8 @@ namespace Api
                                           .AllowAnyMethod()
                                           .AllowAnyHeader());
 
+            
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

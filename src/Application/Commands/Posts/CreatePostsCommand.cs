@@ -1,7 +1,7 @@
 ﻿using Domain.interfaces.Commands;
 using Domain.Utils;
 
-namespace Domain.Commands.Posts
+namespace Application.Commands.Posts
 {
     public class CreatePostsCommand : Validation<CreatePostsCommand>, ICommand
     {

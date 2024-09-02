@@ -1,11 +1,11 @@
 ﻿using Domain.Entities;
 using Domain.interfaces.Commands;
 
-namespace Domain.Commands
+namespace Application.Commands
 {
     public class GenericResultCommand : ICommandResult
     {
-        public GenericResultCommand(bool success, string message, EntityBase data)
+        public GenericResultCommand(bool success, string message, object data)
         {
             Success = success;
             Message = message;
@@ -14,7 +14,7 @@ namespace Domain.Commands
 
        public bool Success { get; set; }
        public string Message { get; set; }
-       public EntityBase Data { get; set; }
+       public object Data { get; set; }
        
        
     }

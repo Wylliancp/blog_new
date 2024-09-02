@@ -17,6 +17,15 @@ namespace Infra.Repositories
             _context = context;
         }
 
+        public User Authenticate(string nome, string password)
+        {
+            var user = _context.Users.AsNoTracking().Where(x => x.Nome == nome
+                                                            && x.Password == password)
+                                                            .FirstOrDefault();
+
+            return user;
+        }
+
         public bool Create(User item)
         {
             if (item == null)

@@ -2,9 +2,9 @@ using System;
 using System.Linq.Expressions;
 using Domain.Entities;
 
-namespace Domain.Queries
+namespace Application.Queries
 {
-    public static class PostsQueries
+    public static class UserQueries
     {
         
         public static Expression<Func<Posts,bool>> GetById(int id)

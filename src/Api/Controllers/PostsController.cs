@@ -1,6 +1,6 @@
-﻿using Domain.Commands.User;
+﻿using Application.Commands.Posts;
 using Domain.Entities;
-using Domain.Handlers;
+using Application.Handlers;
 using Domain.interfaces.Commands;
 using Domain.Interfaces.Repositories;
 using Microsoft.AspNetCore.Mvc;
@@ -11,50 +11,50 @@ namespace Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UserController : ControllerBase
+    public class PostsController : ControllerBase
     {
-        private readonly ILogger<UserController> _logger;
+        private readonly ILogger<PostsController> _logger;
 
-        public UserController(ILogger<UserController> logger)
+        public PostsController(ILogger<PostsController> logger)
         {
             _logger = logger;
         }
 
         [Route("GetTById")]
         [HttpGet]
-        public User GetById([FromBody] int id, [FromServices] IUserRepository repository)
+        public Posts GetById([FromBody] int id, [FromServices] IPostsRepository repository)
         {
             return repository.GetById(id);
         }
 
         [Route("GetAll")]
         [HttpGet]
-        public IEnumerable<User> GetAll([FromServices] IUserRepository repository)
+        public IEnumerable<Posts> GetAll([FromServices] IPostsRepository repository)
         {
             return repository.GetAll();
         }
 
         [Route("Create")]
         [HttpPost]
-        public ICommandResult Create([FromBody] CreateUserCommand createUserCommand, [FromServices] UserHandler handler)
+        public ICommandResult Create([FromBody] CreatePostsCommand createPostsCommand, [FromServices] PostsHandler handler)
         {
-             return handler.Handle(createUserCommand);
+             return handler.Handle(createPostsCommand);
         }
 
         [Route("Update")]
         [HttpPut]
-        public ICommandResult Finish([FromBody] UpdateUserCommand updateUserCommand, [FromServices] UserHandler handler)
+        public ICommandResult Finish([FromBody] UpdatePostsCommand updatePostsCommand, [FromServices] PostsHandler handler)
         {
-             return handler.Handle(updateUserCommand);
+             return handler.Handle(updatePostsCommand);
         }
 
         
 
         [Route("Delete")]
         [HttpDelete]
-        public ICommandResult Delete([FromQuery] DeleteUserCommand deleteUserCommand, [FromServices] UserHandler handler)
+        public ICommandResult Delete([FromQuery] DeletePostsCommand deletePostsCommand, [FromServices] PostsHandler handler)
         {
-             return handler.Handle(deleteUserCommand);
+             return handler.Handle(deletePostsCommand);
         }
     }
 }

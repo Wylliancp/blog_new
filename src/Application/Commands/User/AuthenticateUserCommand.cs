@@ -1,12 +1,12 @@
 ﻿using Domain.interfaces.Commands;
 using Domain.Utils;
 
-namespace Domain.Commands.User
+namespace Application.Commands.User
 {
-    public class CreateUserCommand : Validation<CreateUserCommand>, ICommand
+    public class AuthenticateUserCommand : Validation<AuthenticateUserCommand>, ICommand
     {
 
-        public CreateUserCommand(string nome, string password)
+        public AuthenticateUserCommand(string nome, string password)
         {
             ValidTasksTitle(nome);
             Nome = nome;

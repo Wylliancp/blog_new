@@ -1,7 +1,7 @@
 ﻿using Domain.interfaces.Commands;
 using Domain.Utils;
 
-namespace Domain.Commands.User
+namespace Application.Commands.User
 {
     public class UpdateUserCommand : Validation<UpdateUserCommand>, ICommand
     {

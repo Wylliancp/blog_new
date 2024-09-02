@@ -1,11 +1,11 @@
-﻿using Domain.Commands;
-using Domain.Commands.Posts;
+﻿using Application.Commands;
+using Application.Commands.Posts;
 using Domain.Entities;
 using Domain.interfaces.Commands;
 using Domain.Interfaces.Handlers;
 using Domain.Interfaces.Repositories;
 
-namespace Domain.Handlers
+namespace Application.Handlers
 {
     public class PostsHandler : 
     IHandler<CreatePostsCommand>,

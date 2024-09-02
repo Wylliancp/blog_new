@@ -1,16 +1,18 @@
-﻿using Domain.Commands;
-using Domain.Commands.User;
+﻿using Application.Commands;
+using Application.Commands.User;
+using Application.Services;
 using Domain.Entities;
 using Domain.interfaces.Commands;
 using Domain.Interfaces.Handlers;
 using Domain.Interfaces.Repositories;
 
-namespace Domain.Handlers
+namespace Application.Handlers
 {
     public class UserHandler : 
     IHandler<CreateUserCommand>,
     IHandler<UpdateUserCommand>,
-    IHandler<DeleteUserCommand>
+    IHandler<DeleteUserCommand>,
+    IHandler<AuthenticateUserCommand>
     {
         private readonly IUserRepository _repository;
 
@@ -54,6 +56,31 @@ namespace Domain.Handlers
                 _repository.Delete(command.id);
                 //
             return new GenericResultCommand(true, "Deletado com Sucesso!", null);
+        }
+
+        public ICommandResult Handle(AuthenticateUserCommand command)
+        {
+
+            if (!command.IsValid)
+                return new GenericResultCommand(false, "Nome vazio!", null);
+
+            var task = new User(command.Nome, command.Password);
+            //repository
+            var user = _repository.Authenticate(task.Nome, task.Password);
+            //
+
+            if (user == null)
+                return new GenericResultCommand(false, "Usúario ou senha inválido", null);
+
+            var token = TokenServices.GenerateToken(user);
+            user.Password = "";
+
+            return new GenericResultCommand(true, "Login com Sucesso!", new
+            {
+                user = user,
+                token = token
+            });
+
         }
     }
 }

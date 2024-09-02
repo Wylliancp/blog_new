@@ -1,8 +1,9 @@
-﻿using Domain.Commands.Posts;
+﻿using Application.Commands.User;
+using Application.Handlers;
 using Domain.Entities;
-using Domain.Handlers;
 using Domain.interfaces.Commands;
 using Domain.Interfaces.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
@@ -11,50 +12,73 @@ namespace Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class PostsController : ControllerBase
-    {
-        private readonly ILogger<PostsController> _logger;
+    [Authorize]
 
-        public PostsController(ILogger<PostsController> logger)
+    public class UserController : ControllerBase
+    {
+        private readonly ILogger<UserController> _logger;
+
+        public UserController(ILogger<UserController> logger)
         {
             _logger = logger;
         }
 
         [Route("GetTById")]
         [HttpGet]
-        public Posts GetById([FromBody] int id, [FromServices] IPostsRepository repository)
+        [Authorize]
+
+        public User GetById([FromBody] int id, [FromServices] IUserRepository repository)
         {
             return repository.GetById(id);
         }
 
         [Route("GetAll")]
         [HttpGet]
-        public IEnumerable<Posts> GetAll([FromServices] IPostsRepository repository)
+        [Authorize]
+
+        public IEnumerable<User> GetAll([FromServices] IUserRepository repository)
         {
             return repository.GetAll();
         }
 
         [Route("Create")]
         [HttpPost]
-        public ICommandResult Create([FromBody] CreatePostsCommand createPostsCommand, [FromServices] PostsHandler handler)
+        [AllowAnonymous]
+
+        public ICommandResult Create([FromBody] CreateUserCommand createUserCommand, [FromServices] UserHandler handler)
         {
-             return handler.Handle(createPostsCommand);
+            return handler.Handle(createUserCommand);
         }
 
         [Route("Update")]
         [HttpPut]
-        public ICommandResult Finish([FromBody] UpdatePostsCommand updatePostsCommand, [FromServices] PostsHandler handler)
+        [Authorize]
+
+        public ICommandResult Finish([FromBody] UpdateUserCommand updateUserCommand, [FromServices] UserHandler handler)
         {
-             return handler.Handle(updatePostsCommand);
+            return handler.Handle(updateUserCommand);
         }
 
         
 
         [Route("Delete")]
         [HttpDelete]
-        public ICommandResult Delete([FromQuery] DeletePostsCommand deletePostsCommand, [FromServices] PostsHandler handler)
+        [Authorize]
+
+        public ICommandResult Delete([FromQuery] DeleteUserCommand deleteUserCommand, [FromServices] UserHandler handler)
         {
-             return handler.Handle(deletePostsCommand);
+            return handler.Handle(deleteUserCommand);
+        }
+
+        [HttpPost]
+        [Route("login")]
+        [AllowAnonymous]
+
+        public ICommandResult Authenticate(
+         [FromServices] UserHandler handler,
+         [FromBody] AuthenticateUserCommand authenticateUserCommand)
+        {
+            return handler.Handle(authenticateUserCommand);
         }
     }
 }

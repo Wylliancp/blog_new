@@ -6,7 +6,7 @@ namespace Domain.Entities
     public class User : EntityBase
     {
         public string Nome { get; private set; }
-        public string Password { get; private set; }
+        public string Password { get; set; }
         //public DateTime DateEnd { get; private set; }
         public IList<Posts> Posts { get; private set; } = new List<Posts>();
 
