@@ -1,18 +1,18 @@
-﻿using Blog.Signal.Hubs;
+﻿using Api.Hubs;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Hosting;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Blog.Signal.Services
+namespace Api.Services
 {
     public class PostsServiceBackgroundCaller : BackgroundService
     {
-        public IPostsService _postsService { get; }
+        public PostsService _postsService { get; }
         public IHubContext<PostsDataHub> _stockDataHub { get; }
 
-        public PostsServiceBackgroundCaller(IPostsService stockData, IHubContext<PostsDataHub> stockDataHub)
+        public PostsServiceBackgroundCaller(PostsService stockData, IHubContext<PostsDataHub> stockDataHub)
         {
             _postsService = stockData;
             _stockDataHub = stockDataHub;
@@ -23,7 +23,7 @@ namespace Blog.Signal.Services
         {
             while(!stoppingToken.IsCancellationRequested)
             {
-                var posts = await _postsService.GetPostsCount();
+                var posts = _postsService.GetNotificationPost();
                 await _stockDataHub.Clients.All.SendAsync("populatedata", JsonSerializer.Serialize(posts));
                 Interlocked.Increment(ref productId);
 

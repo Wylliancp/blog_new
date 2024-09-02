@@ -3,7 +3,7 @@
 
 var connection = new signalR
     .HubConnectionBuilder()
-    .withUrl("/stockdatahub").build();
+    .withUrl("https://localhost:5001/stockdatahub").build();
 
 connection.start().then(() => console.log("hubconnected")).catch(() => console.log(error));//establish connection
 

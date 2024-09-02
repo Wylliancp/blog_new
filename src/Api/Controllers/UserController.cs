@@ -35,7 +35,6 @@ namespace Api.Controllers
         [Route("GetAll")]
         [HttpGet]
         [Authorize]
-
         public IEnumerable<User> GetAll([FromServices] IUserRepository repository)
         {
             return repository.GetAll();

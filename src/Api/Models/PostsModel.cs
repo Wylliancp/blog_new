@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace Blog.Signal.Models
+namespace Api.Models
 {
     public class PostModel
     {

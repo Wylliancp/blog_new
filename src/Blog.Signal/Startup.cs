@@ -1,10 +1,5 @@
-using Blog.Signal.Hubs;
-using Blog.Signal.Services;
-using Domain.Interfaces.Repositories;
-using Infra.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -24,22 +19,6 @@ namespace Blog.Signal
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddSignalR();
-            services.AddHttpClient();
-
-            //services.AddDbContext<Infra.Context.BlogOneContext>(opt => opt.UseInMemoryDatabase("database"), ServiceLifetime.Singleton);
-            //var connectionString = Configuration.GetConnectionString("Database");
-
-            //services.AddDbContext<Infra.Context.BlogOneContext>(options =>
-            
-            //    options.UseSqlServer(connectionString), ServiceLifetime.Singleton
-            //);
-            // Repository
-            //services.AddSingleton<IPostsRepository, PostsRepository>();
-            services.AddHostedService<PostsServiceBackgroundCaller>();
-            services.AddSingleton<IPostsService, PostsService>();
-
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,7 +41,7 @@ namespace Blog.Signal
             app.UseEndpoints(endpoints =>
             {
 
-                endpoints.MapHub<PostsDataHub>("/stockdatahub");
+                //endpoints.MapHub<PostsDataHub>("/stockdatahub");
                 endpoints.MapControllerRoute(
                          name: "default",
                          pattern: "{controller=Home}/{action=Index}/{id?}");

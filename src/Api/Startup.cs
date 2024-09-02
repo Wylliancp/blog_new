@@ -1,3 +1,5 @@
+using Api.Hubs;
+using Api.Services;
 using Application;
 using Application.Handlers;
 using Domain.Interfaces.Repositories;
@@ -70,6 +72,8 @@ namespace Api
             });
 
             services.AddControllers();
+            services.AddSignalR();
+
             //jwt-ex::bearer+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Im5ldyIsIm5iZiI6MTcyNTIzOTY0NiwiZXhwIjoxNzI1MjQ2ODQ1LCJpYXQiOjE3MjUyMzk2NDZ9.HYONNkHxy54ZOQKhZgBZUl-zJQoL3ZWHTj0Se4FPfXc
             var key = Encoding.ASCII.GetBytes(Settings.Secret);
             services.AddAuthentication(x =>
@@ -93,6 +97,11 @@ namespace Api
 
             //Context
             services.AddDbContext<Infra.Context.BlogOneContext>(opt => opt.UseInMemoryDatabase("database"));
+            //Services
+            services.AddHostedService<PostsServiceBackgroundCaller>();
+            //services.AddSingleton<IPostsService, PostsService>();
+            services.AddSingleton<PostsService>();
+
             // Repository
             services.AddTransient<IPostsRepository, PostsRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
@@ -117,18 +126,22 @@ namespace Api
             app.UseHttpsRedirection();
 
             app.UseRouting();
-            app.UseCors(x => x.AllowAnyOrigin()
-                                          .AllowAnyMethod()
-                                          .AllowAnyHeader());
+            app.UseCors(x => x.AllowAnyMethod()
+                               .AllowAnyHeader()
+                               .SetIsOriginAllowed(origin => true)
+                               .AllowCredentials());
 
-            
+
             app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<PostsDataHub>("/stockdatahub");
+
                 endpoints.MapControllers();
             });
+
         }
     }
 }

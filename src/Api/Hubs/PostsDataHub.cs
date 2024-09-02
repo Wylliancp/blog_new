@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 
-namespace Blog.Signal.Hubs
+namespace Api.Hubs
 {
     public class PostsDataHub : Hub
     {

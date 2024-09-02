@@ -2,22 +2,10 @@ version: '3.4'
 
 services:
 
-  postdb:
-    container_name: postdb
-    environment:
-      - ACCEPT_EULA=Y
-      - SA_PASSWORD=SwN12345678
-    restart: always
-    ports:
-      - "1433:1433"
-
   api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
-      - ConnectionStrings__Database=Server=postdb;Database=PostDb;User Id=sa;Password=SwN12345678;Encrypt=False;TrustServerCertificate=True
-    depends_on:
-      - postdb
     ports:
       - "80"
       - "443"
@@ -28,9 +16,6 @@ services:
   blog.signal:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__Database=Server=postdb;Database=PostDb;User Id=signalr;Password=1233;Encrypt=False;TrustServerCertificate=True
-    depends_on:
-      - postdb
     ports:
       - "80"
 

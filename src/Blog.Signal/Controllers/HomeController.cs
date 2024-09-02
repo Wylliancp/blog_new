@@ -1,5 +1,4 @@
-﻿using Blog.Signal.Services;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 
@@ -8,13 +7,11 @@ namespace Blog.Signal.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IPostsService stockData;
 
 
-        public HomeController(ILogger<HomeController> logger, IPostsService stockData)
+        public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            this.stockData = stockData;
 
         }
 
